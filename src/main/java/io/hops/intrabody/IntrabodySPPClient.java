@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Vector;
 
 import javax.bluetooth.DeviceClass;
@@ -20,14 +23,15 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 
 /**
- * A simple SPP client that connects with an SPP server
+ * Intrabody SPP Client. Code has been adopted from code
+ has been adopted from [https://github.com/gth828r/sprime](https://github.com/gth828r/sprime).
  */
-public class SimpleSPPClient implements DiscoveryListener {
+public class IntrabodySPPClient implements DiscoveryListener {
   
   
   public static void main(String[] args) throws IOException {
-    System.out.println("\n" + "Testing BT Client" + "\n");
-    SimpleSPPClient sppClient = new SimpleSPPClient();
+    System.out.println("\n" + "Intrabody Client" + "\n");
+    IntrabodySPPClient sppClient = new IntrabodySPPClient();
     sppClient.runClient();
   }
   
@@ -40,10 +44,15 @@ public class SimpleSPPClient implements DiscoveryListener {
   // device connection address
   private static String connectionURL = null;
   
+  //Record to be sent to Android
+  
+  private static long recordsSent;
+  
   /**
    * runs a bluetooth client that sends a string to a server and prints the response
    */
   public void runClient() throws IOException {
+  
     
     // display local device address and name
     LocalDevice localDevice = LocalDevice.getLocalDevice();
@@ -238,17 +247,28 @@ public class SimpleSPPClient implements DiscoveryListener {
     }
     
     public void run() {
+  
+      float lower = -1554900.101f;
+      float upper = 5295205.3098f;
+  
+      String recordTemplate = null;
+      try {
+        byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
+        recordTemplate = new String(encoded, "UTF-8");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
       while (true) {
         try {
-          // prompt
-          System.out.println("Sending record message: ");
-          //BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
-          String inputline = "{latitude: 999.55515634145839, longitude: 47.75230306919155, bootMillis: 178615447, " +
-              "bootNum: 0, deviceUUID: f6214976-ccae-48f0-9aa9-97d09b22ba6d, epochMillis: 1517235415807, recordUUID: " +
-              "fe7b0edf-105b-4d7e-95d2-d03ed85a39bb}";//bReader.readLine();
-          pWriter.println(inputline);
+          //Set value and timestamp in record
+          String record = recordTemplate.replace("<value>",
+              Float.toString((float)Math.random() * (upper - lower) + lower)).
+              replace("<time>",Long.toString(System.currentTimeMillis())).trim();
+          System.out.println("Record to send:"+record);
+          pWriter.println(record);
           pWriter.flush();
-          System.out.println("Client send: " + inputline+"\r\n");
+          recordsSent++;
+          System.out.println("Records sent : " + recordsSent);
           Thread.sleep(2000);
         } catch (Exception e) {
           e.printStackTrace();

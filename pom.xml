@@ -7,39 +7,92 @@
   <groupId>io.hops</groupId>
   <artifactId>intrabody-client</artifactId>
   <version>0.1.0</version>
-  <packaging>jar</packaging>
-
   <build>
-    <plugins><!-- Maven Assembly Plugin -->
+    <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.4.1</version>
+        <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <!-- get all project dependencies -->
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <!-- MainClass in mainfest make a executable jar -->
-          <archive>
-            <manifest>
-              <mainClass>com.mkyong.core.utils.App</mainClass>
-            </manifest>
-          </archive>
-
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <!-- bind to the packaging phase -->
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
+  <packaging>jar</packaging>
+  <!--<dependencies>-->
+    <!--<dependency>-->
+      <!--<groupId>net.sf.bluecove</groupId>-->
+      <!--<artifactId>bluecove</artifactId>-->
+      <!--<version>2.1.1-SNAPSHOT</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>net.sf.bluecove</groupId>-->
+      <!--<artifactId>bluecove-bluez</artifactId>-->
+      <!--<version>2.1.1-SNAPSHOT</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>net.sf.bluecove</groupId>-->
+      <!--<artifactId>bluecove-gpl</artifactId>-->
+      <!--<version>2.1.1-SNAPSHOT</version>-->
+    <!--</dependency>-->
+  <!--</dependencies>-->
+
+  <!--<build>-->
+  <!--<plugins>&lt;!&ndash; Maven Assembly Plugin &ndash;&gt;-->
+  <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
+  <!--&lt;!&ndash;<groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
+  <!--&lt;!&ndash;<artifactId>maven-assembly-plugin</artifactId>&ndash;&gt;-->
+  <!--&lt;!&ndash;<version>2.4.1</version>&ndash;&gt;-->
+  <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
+  <!--&lt;!&ndash;&lt;!&ndash; get all project dependencies &ndash;&gt;&ndash;&gt;-->
+  <!--&lt;!&ndash;<descriptorRefs>&ndash;&gt;-->
+  <!--&lt;!&ndash;<descriptorRef>jar-with-dependencies</descriptorRef>&ndash;&gt;-->
+  <!--&lt;!&ndash;</descriptorRefs>&ndash;&gt;-->
+  <!--&lt;!&ndash;&lt;!&ndash; MainClass in mainfest make a executable jar &ndash;&gt;&ndash;&gt;-->
+  <!--&lt;!&ndash;<archive>&ndash;&gt;-->
+  <!--&lt;!&ndash;<manifest>&ndash;&gt;-->
+  <!--&lt;!&ndash;<mainClass>com.mkyong.core.utils.App</mainClass>&ndash;&gt;-->
+  <!--&lt;!&ndash;</manifest>&ndash;&gt;-->
+  <!--&lt;!&ndash;</archive>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
+  <!--&lt;!&ndash;<executions>&ndash;&gt;-->
+  <!--&lt;!&ndash;<execution>&ndash;&gt;-->
+  <!--&lt;!&ndash;<id>make-assembly</id>&ndash;&gt;-->
+  <!--&lt;!&ndash;&lt;!&ndash; bind to the packaging phase &ndash;&gt;&ndash;&gt;-->
+  <!--&lt;!&ndash;<phase>package</phase>&ndash;&gt;-->
+  <!--&lt;!&ndash;<goals>&ndash;&gt;-->
+  <!--&lt;!&ndash;<goal>single</goal>&ndash;&gt;-->
+  <!--&lt;!&ndash;</goals>&ndash;&gt;-->
+  <!--&lt;!&ndash;</execution>&ndash;&gt;-->
+  <!--&lt;!&ndash;</executions>&ndash;&gt;-->
+  <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+  <!--<plugin>-->
+  <!--<groupId>org.apache.maven.plugins</groupId>-->
+  <!--<artifactId>maven-war-plugin</artifactId>-->
+  <!--<version>3.2.0</version>-->
+  <!--<configuration>-->
+  <!--<webResources>-->
+  <!--<resource>-->
+  <!--<directory>.</directory>-->
+  <!--<targetPath>.</targetPath>-->
+  <!--<filtering>true</filtering>-->
+  <!--<includes>-->
+  <!--<include>/intrabody-local-repo/*</include>-->
+  <!--</includes>-->
+  <!--</resource>-->
+  <!--</webResources>-->
+  <!--</configuration>-->
+  <!--</plugin>-->
+  <!--</plugins>-->
+  <!--</build>-->
+
+  <!--<repositories>-->
+  <!--<repository>-->
+  <!--<id>intrabody-local-repo</id>-->
+  <!--<url>file:///home/tkak/hops/intrabody-client/intrabody-local-repo</url>-->
+  <!--</repository>-->
+  <!--</repositories>-->
 
 </project>
