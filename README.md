@@ -8,8 +8,9 @@ has been adopted from [https://github.com/gth828r/sprime](https://github.com/gth
 
 ```
 sudo apt-get update
-sudo apt-get install python-pip python-dev ipython
 sudo apt-get install bluetooth libbluetooth-dev
+# If there are missing librarires at runtime, install these as well 
+# libbluetooth-dev libboost-thread-dev libglib2.0-dev
 ```
 - Bluetooth adapter active on your laptop
 - Define the **record** to be sent, in `src/main/resources/record.txt`. It must be a *one-line* valid json format 
