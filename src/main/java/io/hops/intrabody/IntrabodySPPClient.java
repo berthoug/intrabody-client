@@ -1,17 +1,5 @@
 package io.hops.intrabody;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Vector;
-
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.DiscoveryListener;
@@ -21,6 +9,16 @@ import javax.bluetooth.ServiceRecord;
 import javax.bluetooth.UUID;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Vector;
 
 /**
  * Intrabody SPP Client. Code has been adopted from code
@@ -235,14 +233,18 @@ public class IntrabodySPPClient implements DiscoveryListener {
     private StreamConnection connection = null;
     PrintWriter pWriter = null;
     
-    public sendLoop(StreamConnection c) {
+    public sendLoop(StreamConnection c) throws IOException {
       this.connection = c;
-      OutputStream outStream;
+      OutputStream outStream = null;
       try {
         outStream = this.connection.openOutputStream();
         this.pWriter = new PrintWriter(new OutputStreamWriter(outStream));
       } catch (IOException e) {
         e.printStackTrace();
+      } finally {
+        if(outStream != null){
+          outStream.close();
+        }
       }
     }
     
@@ -261,8 +263,11 @@ public class IntrabodySPPClient implements DiscoveryListener {
       while (true) {
         try {
           //Set value and timestamp in record
-          String record = recordTemplate.replace("<value>",
-              Float.toString((float)Math.random() * (upper - lower) + lower)).
+          String record =
+            recordTemplate.replace("<value>", Float.toString((float)Math.random() * (upper - lower) + lower)).
+//              "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
+//                + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
+//                + ", gesture: 0").
               replace("<time>",Long.toString(System.currentTimeMillis())).trim();
           System.out.println("Record to send:"+record);
           pWriter.println(record);
