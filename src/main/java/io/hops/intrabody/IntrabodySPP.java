@@ -1,5 +1,6 @@
 package io.hops.intrabody;
 
+import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.DiscoveryListener;
@@ -9,6 +10,7 @@ import javax.bluetooth.ServiceRecord;
 import javax.bluetooth.UUID;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
+import javax.microedition.io.StreamConnectionNotifier;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,13 +26,23 @@ import java.util.Vector;
  * Intrabody SPP Client. Code has been adopted from code
  has been adopted from [https://github.com/gth828r/sprime](https://github.com/gth828r/sprime).
  */
-public class IntrabodySPPClient implements DiscoveryListener {
+public class IntrabodySPP implements DiscoveryListener {
   
   
   public static void main(String[] args) throws IOException {
-    System.out.println("\n" + "Intrabody Client" + "\n");
-    IntrabodySPPClient sppClient = new IntrabodySPPClient();
-    sppClient.runClient();
+    if(args == null || args.length != 1){
+      throw new IllegalArgumentException("Argument must be <server|client");
+    }
+    IntrabodySPP sppClient = new IntrabodySPP();
+    if(args[0].equals("client")) {
+      System.out.println("\n" + "Intrabody Client" + "\n");
+      sppClient.runClient();
+    } else if (args[0].equals("server")){
+      System.out.println("In case of SDP error, please follow these instructions: " +
+        "1) https://stackoverflow.com/a/36527915 \n 2) https://stackoverflow.com/a/39674002 w ");
+      System.out.println("\n" + "Intrabody Server" + "\n");
+      sppClient.runServer();
+    }
   }
   
   // object used for waiting
@@ -45,6 +57,17 @@ public class IntrabodySPPClient implements DiscoveryListener {
   //Record to be sent to Android
   
   private static long recordsSent;
+  
+  public void runServer() throws IOException {
+    // display local device address and name
+    LocalDevice localDevice = LocalDevice.getLocalDevice();
+    System.out.println("Address: " + localDevice.getBluetoothAddress());
+    System.out.println("Name: " + localDevice.getFriendlyName());
+  
+    // run server
+    startServer();
+  }
+  
   
   /**
    * runs a bluetooth client that sends a string to a server and prints the response
@@ -140,7 +163,24 @@ public class IntrabodySPPClient implements DiscoveryListener {
     // pWriter.flush();
     
     // send string
-    Thread sendT = new Thread(new sendLoop(connection));
+    float lower = -1554900.101f;
+    float upper = 5295205.3098f;
+  
+    String recordTemplate = null;
+    try {
+      byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
+      recordTemplate = new String(encoded, "UTF-8");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    String record =
+      recordTemplate.replace("<value>", Float.toString((float)Math.random() * (upper - lower) + lower)).
+        //              "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
+        //                + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
+        //                + ", gesture: 0").
+          replace("<time>",Long.toString(System.currentTimeMillis())).trim();
+    
+    Thread sendT = new Thread(new sendLoop(connection, record));
     sendT.start();
     
     // read response
@@ -232,9 +272,15 @@ public class IntrabodySPPClient implements DiscoveryListener {
   private static class sendLoop implements Runnable {
     private StreamConnection connection = null;
     PrintWriter pWriter = null;
+    private String record;
     
     public sendLoop(StreamConnection c) throws IOException {
+      this(c, null);
+    }
+    
+    public sendLoop(StreamConnection c, String record) throws IOException {
       this.connection = c;
+      this.record = record;
       OutputStream outStream = null;
       try {
         outStream = this.connection.openOutputStream();
@@ -249,28 +295,18 @@ public class IntrabodySPPClient implements DiscoveryListener {
     }
     
     public void run() {
-  
-      float lower = -1554900.101f;
-      float upper = 5295205.3098f;
-  
-      String recordTemplate = null;
-      try {
-        byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
-        recordTemplate = new String(encoded, "UTF-8");
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
       while (true) {
         try {
           //Set value and timestamp in record
-          String record =
-            recordTemplate.replace("<value>", Float.toString((float)Math.random() * (upper - lower) + lower)).
-//              "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
-//                + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
-//                + ", gesture: 0").
-              replace("<time>",Long.toString(System.currentTimeMillis())).trim();
-          System.out.println("Record to send:"+record);
-          pWriter.println(record);
+          if(record != null && !record.isEmpty()) {
+            System.out.println("Record to send:" + record);
+            pWriter.println(record);
+          } else {
+            System.out.println("Enter message: ");
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
+            String inputline = bReader.readLine();
+            pWriter.write(inputline);
+          }
           pWriter.flush();
           recordsSent++;
           System.out.println("Records sent : " + recordsSent);
@@ -281,5 +317,69 @@ public class IntrabodySPPClient implements DiscoveryListener {
       }
     }
   } // sendLoop
+  
+  
+  // start server
+  private void startServer() throws IOException {
+    
+    // Create a UUID
+    UUID uuid = new UUID("1101", true); // serial, SPP
+    // UUID uuid = new UUID("1105", true); // obex obj push
+    // UUID uuid = new UUID("0003", true); // rfcomm
+    // UUID uuid = new UUID("1106", true); // obex file transfer
+    
+    // Create the service url
+    String connectionString = "btspp://localhost:" + uuid + ";name=Sample SPP Server";
+    
+    // open server url
+    StreamConnectionNotifier streamConnNotifier = (StreamConnectionNotifier) Connector.open(connectionString);
+    
+    // Wait for client connection
+    System.out.println("\nServer Started. Waiting for clients to connect...");
+    StreamConnection connection = streamConnNotifier.acceptAndOpen();
+    
+    // connect
+    System.out.println("Connecting to client...");
+    RemoteDevice dev = RemoteDevice.getRemoteDevice(connection);
+    try {
+      System.out.println("Remote device address: " + dev.getBluetoothAddress());
+      System.out.println("Remote device name: " + dev.getFriendlyName(true));
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+    
+    // read string from spp client
+    // InputStream inStream = connection.openInputStream();
+    // BufferedReader bReader = new BufferedReader(new InputStreamReader(inStream));
+    // String lineRead = bReader.readLine();
+    // System.out.println("TEST"+lineRead);
+    
+    // read string from spp client
+    Thread recvT = new Thread(new recvLoop(connection));
+    recvT.start();
+    
+    // send response to spp client
+    // OutputStream outStream = connection.openOutputStream();
+    // PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(outStream));
+    // pWriter.write("Response String from SPP Server\r\n");
+    // pWriter.flush();
+    
+    // send response to spp client
+    Thread sendT = new Thread(new sendLoop(connection, "BT device ack"));
+    sendT.start();
+    
+    System.out.println("\nServer threads started");
+    
+    // stay alive
+    while (true) {
+      try {
+        Thread.sleep(2000);
+        // System.out.println("\nServer looping.");
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    
+  } // startServer
   
 }
