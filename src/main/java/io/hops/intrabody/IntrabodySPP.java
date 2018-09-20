@@ -40,7 +40,7 @@ public class IntrabodySPP implements DiscoveryListener {
       sppClient.runClient();
     } else if (args[0].equals("server")){
       System.out.println("In case of SDP error, please follow these instructions: " +
-        "1) https://stackoverflow.com/a/36527915 \n 2) https://stackoverflow.com/a/39674002 w ");
+        "1) https://stackoverflow.com/a/36527915 \n 2) https://stackoverflow.com/a/39674002");
       System.out.println("\n" + "Intrabody Server" + "\n");
       sppClient.runServer();
     }
@@ -223,11 +223,13 @@ public class IntrabodySPP implements DiscoveryListener {
   private static class recvLoop implements Runnable {
     private StreamConnection connection = null;
     private InputStream inStream = null;
-    
+    private BufferedReader bReader = null;
+  
     public recvLoop(StreamConnection c) {
       this.connection = c;
       try {
         this.inStream = this.connection.openInputStream();
+        bReader = new BufferedReader(new InputStreamReader(inStream));
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -236,8 +238,6 @@ public class IntrabodySPP implements DiscoveryListener {
     public void run() {
       while (true) {
         try {
-          
-          BufferedReader bReader = new BufferedReader(new InputStreamReader(inStream));
           String lineRead = bReader.readLine();
           if(lineRead != null) {
             System.out.println("Client recv: " + lineRead);
@@ -307,6 +307,7 @@ public class IntrabodySPP implements DiscoveryListener {
     
     // Create the service url
     String connectionString = "btspp://localhost:" + uuid + ";name=Sample SPP Server";
+    System.out.println("connectionString:" + connectionString);
     
     // open server url
     StreamConnectionNotifier streamConnNotifier = (StreamConnectionNotifier) Connector.open(connectionString);
@@ -330,8 +331,8 @@ public class IntrabodySPP implements DiscoveryListener {
     recvT.start();
     
     // send response to spp client
-    Thread sendT = new Thread(new sendLoop(connection, "BT device ack"));
-    sendT.start();
+//    Thread sendT = new Thread(new sendLoop(connection, "BT device ack"));
+//    sendT.start();
     
     System.out.println("\nServer threads started");
     
