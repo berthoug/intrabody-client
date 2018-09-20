@@ -15,5 +15,5 @@
 #mvn install:install-file -Dfile=./intrabody-local-repo/bluecove-bluez-2.1.1-SNAPSHOT.jar -DgroupId=net.sf.bluecove -DartifactId=bluecove-bluez -Dversion=2.1.1-SNAPSHOT -Dpackaging=jar -DlocalRepositoryPath=~/.m2/repository
 #mvn install:install-file -Dfile=./intrabody-local-repo/bluecove-gpl-2.1.1-SNAPSHOT.jar -DgroupId=net.sf.bluecove -DartifactId=bluecove-gpl -Dversion=2.1.1-SNAPSHOT -Dpackaging=jar -DlocalRepositoryPath=~/.m2/repository
 
-java -Dfile.encoding=UTF-8 -classpath ./target/classes:bluecove-2.1.1-SNAPSHOT.jar:bluecove-bluez-2.1.1-SNAPSHOT.jar:bluecove-gpl-2.1.1-SNAPSHOT.jar io.hops.intrabody.IntrabodySPPClient
+java -Dfile.encoding=UTF-8 -classpath ./target/classes:bluecove-2.1.1-SNAPSHOT.jar:bluecove-bluez-2.1.1-SNAPSHOT.jar:bluecove-gpl-2.1.1-SNAPSHOT.jar io.hops.intrabody.IntrabodySPP
 

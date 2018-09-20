@@ -21,4 +21,4 @@ Default is:
  ``` 
 `time` is automatically set by the program in runtime.
 
-- Run it from the root path of the project with `java -classpath target/classes:lib/* io.hops.intrabody.IntrabodySPPClient`  
+- Run it from the root path of the project with `java -classpath target/classes:lib/* io.hops.intrabody.IntrabodySPP`  
