@@ -158,16 +158,9 @@ public class IntrabodySPP implements DiscoveryListener {
     System.out.println("Connected to server.");
     
     // send string
-    String recordTemplate = null;
-    byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
-    recordTemplate = new String(encoded, StandardCharsets.US_ASCII);
-    String record = recordTemplate.replace("<value>",
-                      "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
-                        + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
-                        + ", gesture: 0").
-          replace("<time>",Long.toString(System.currentTimeMillis())).trim();
     
-    Thread sendT = new Thread(new sendLoop(connection, record));
+    
+    Thread sendT = new Thread(new sendLoop(connection));
     sendT.start();
     
     // read response
@@ -253,15 +246,9 @@ public class IntrabodySPP implements DiscoveryListener {
   private static class sendLoop implements Runnable {
     private StreamConnection connection = null;
     PrintWriter pWriter = null;
-    private String record;
     
     public sendLoop(StreamConnection c) throws IOException {
-      this(c, null);
-    }
-    
-    public sendLoop(StreamConnection c, String record) throws IOException {
       this.connection = c;
-      this.record = record;
       OutputStream outStream = null;
       try {
         outStream = this.connection.openOutputStream();
@@ -274,16 +261,16 @@ public class IntrabodySPP implements DiscoveryListener {
     public void run() {
       while (true) {
         try {
+          byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
+          String recordTemplate  = new String(encoded, StandardCharsets.US_ASCII);
+          String record = recordTemplate.replace("<value>",
+            "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
+              + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
+              + ", gesture: 0").
+            replace("<time>",Long.toString(System.currentTimeMillis())).trim();
           //Set value and timestamp in record
-          if(record != null && !record.isEmpty()) {
-            System.out.println("Record to send:" + record);
-            pWriter.println(record);
-          } else {
-            System.out.println("Enter message: ");
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
-            String inputline = bReader.readLine();
-            pWriter.write(inputline);
-          }
+          System.out.println("Record to send:" + record);
+          pWriter.println(record);
           pWriter.flush();
           recordsSent++;
           System.out.println("Records sent : " + recordsSent);
@@ -300,7 +287,7 @@ public class IntrabodySPP implements DiscoveryListener {
   private void startServer() throws IOException {
     
     // Create a UUID
-    UUID uuid = new UUID("1101", true); // serial, SPP
+    UUID uuid = new UUID("1102", true); // serial, SPP
     // UUID uuid = new UUID("1105", true); // obex obj push
     // UUID uuid = new UUID("0003", true); // rfcomm
     // UUID uuid = new UUID("1106", true); // obex file transfer
