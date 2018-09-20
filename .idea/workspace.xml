@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f2b50ed9-1d4b-4899-a521-d553038bf026" name="Default" comment="Changed message to match android app">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/record.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/record.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/record.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/record.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,26 +33,30 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="775" />
-          <entry key="txt" value="38" />
+          <entry key="java" value="912" />
+          <entry key="txt" value="55" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="775" />
-          <entry key="PLAIN_TEXT" value="38" />
+          <entry key="JAVA" value="912" />
+          <entry key="PLAIN_TEXT" value="55" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="2" />
+          <entry key="java" value="1" />
           <entry key="md" value="1" />
+          <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="2" />
+          <entry key="JAVA" value="1" />
           <entry key="Markdown" value="1" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -62,11 +66,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="41" column="93" selection-start-line="41" selection-start-column="93" selection-end-line="41" selection-end-column="93" />
+            <state relative-caret-position="208">
+              <caret line="181" column="25" selection-start-line="181" selection-start-column="25" selection-end-line="181" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/record.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="47" selection-start-column="47" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -94,6 +107,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -105,8 +123,8 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/io/hops/intrabody/SimpleSPPClient.java" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/main/resources/record.txt" />
         <option value="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPPClient.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/record.txt" />
         <option value="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java" />
       </list>
     </option>
@@ -138,6 +156,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -173,6 +193,13 @@
             </path>
             <path>
               <item name="intrabodyclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intrabody-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intrabodyclient" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -180,8 +207,6 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -189,7 +214,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537366594514" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hopsworks-android-client" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -338,6 +363,7 @@
         <item itemvalue="Application.BluetoothServiceDiscovery" />
         <item itemvalue="Application.SimpleSPPServer" />
         <item itemvalue="Application.RemoteDeviceDiscovery" />
+        <item itemvalue="Application.IntrabodySPP" />
       </list>
     </recent_temporary>
   </component>
@@ -386,12 +412,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61029000" />
+    <option name="totallyTimeSpent" value="62538000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" x="706" y="115" width="575" height="925" id="Project" order="0" sideWeight="0.49513513" visible="true" weight="0.3038185" />
+      <window_info content_ui="combo" x="706" y="115" width="575" height="925" id="Project" order="0" sideWeight="0.49513513" visible="true" weight="0.3226342" />
       <window_info id="Structure" order="1" sideWeight="0.5048649" side_tool="true" visible="true" weight="0.3038185" />
       <window_info id="Learn" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -411,7 +437,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32972974" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32864866" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" x="798" y="466" width="390" height="182" id="Run" order="12" weight="0.32756758" />
+      <window_info active="true" anchor="bottom" x="798" y="466" width="390" height="182" id="Run" order="12" visible="true" weight="0.32756758" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -485,13 +511,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/record.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="68" selection-start-column="68" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -502,10 +521,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/record.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="47" selection-start-column="47" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="41" column="93" selection-start-line="41" selection-start-column="93" selection-end-line="41" selection-end-column="93" />
+        <state relative-caret-position="208">
+          <caret line="181" column="25" selection-start-line="181" selection-start-column="25" selection-end-line="181" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

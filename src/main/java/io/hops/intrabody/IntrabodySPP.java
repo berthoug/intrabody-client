@@ -1,6 +1,5 @@
 package io.hops.intrabody;
 
-import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.DiscoveryListener;
@@ -18,9 +17,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Vector;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Intrabody SPP Client. Code has been adopted from code
@@ -49,7 +50,7 @@ public class IntrabodySPP implements DiscoveryListener {
   private static Object lock = new Object();
   
   // vector containing the devices discovered
-  private static Vector<RemoteDevice> vecDevices = new Vector<RemoteDevice>();
+  private static Vector<RemoteDevice> vecDevices = new Vector<>();
   
   // device connection address
   private static String connectionURL = null;
@@ -157,37 +158,17 @@ public class IntrabodySPP implements DiscoveryListener {
     System.out.println("Connected to server.");
     
     // send string
-    // OutputStream outStream = streamConnection.openOutputStream();
-    // PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(outStream));
-    // pWriter.write("Test String from SPP Client\r\n");
-    // pWriter.flush();
-    
-    // send string
-    float lower = -1554900.101f;
-    float upper = 5295205.3098f;
-  
     String recordTemplate = null;
-    try {
-      byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
-      recordTemplate = new String(encoded, "UTF-8");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    String record =
-      recordTemplate.replace("<value>", Float.toString((float)Math.random() * (upper - lower) + lower)).
-        //              "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
-        //                + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
-        //                + ", gesture: 0").
+    byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
+    recordTemplate = new String(encoded, StandardCharsets.US_ASCII);
+    String record = recordTemplate.replace("<value>",
+                      "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
+                        + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
+                        + ", gesture: 0").
           replace("<time>",Long.toString(System.currentTimeMillis())).trim();
     
     Thread sendT = new Thread(new sendLoop(connection, record));
     sendT.start();
-    
-    // read response
-    // InputStream inStream = streamConnection.openInputStream();
-    // BufferedReader bReader2 = new BufferedReader(new InputStreamReader(inStream));
-    // String lineRead = bReader2.readLine();
-    // System.out.println(lineRead);
     
     // read response
     Thread recvT = new Thread(new recvLoop(connection));
@@ -198,7 +179,7 @@ public class IntrabodySPP implements DiscoveryListener {
     // stay alive
     while (true) {
       try {
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         // System.out.println("\nClient looping.");
       } catch (InterruptedException e) {
         e.printStackTrace();
@@ -287,10 +268,6 @@ public class IntrabodySPP implements DiscoveryListener {
         this.pWriter = new PrintWriter(new OutputStreamWriter(outStream));
       } catch (IOException e) {
         e.printStackTrace();
-      } finally {
-        if(outStream != null){
-          outStream.close();
-        }
       }
     }
     
@@ -349,20 +326,8 @@ public class IntrabodySPP implements DiscoveryListener {
     }
     
     // read string from spp client
-    // InputStream inStream = connection.openInputStream();
-    // BufferedReader bReader = new BufferedReader(new InputStreamReader(inStream));
-    // String lineRead = bReader.readLine();
-    // System.out.println("TEST"+lineRead);
-    
-    // read string from spp client
     Thread recvT = new Thread(new recvLoop(connection));
     recvT.start();
-    
-    // send response to spp client
-    // OutputStream outStream = connection.openOutputStream();
-    // PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(outStream));
-    // pWriter.write("Response String from SPP Server\r\n");
-    // pWriter.flush();
     
     // send response to spp client
     Thread sendT = new Thread(new sendLoop(connection, "BT device ack"));
@@ -380,6 +345,6 @@ public class IntrabodySPP implements DiscoveryListener {
       }
     }
     
-  } // startServer
+  }
   
 }
