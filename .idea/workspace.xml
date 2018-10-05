@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f2b50ed9-1d4b-4899-a521-d553038bf026" name="Default" comment="Adding server, fixing sendloop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -36,13 +36,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1061" />
+          <entry key="java" value="1063" />
           <entry key="txt" value="85" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1061" />
+          <entry key="JAVA" value="1063" />
           <entry key="PLAIN_TEXT" value="85" />
         </counts>
       </usages-collector>
@@ -66,14 +66,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="289" column="30" selection-start-line="289" selection-start-column="30" selection-end-line="289" selection-end-column="30" />
+            <state relative-caret-position="1474">
+              <caret line="283" column="2" lean-forward="true" selection-start-line="283" selection-start-column="2" selection-end-line="283" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="1080">
+                <caret line="30" column="109" selection-start-line="30" selection-start-column="109" selection-end-line="30" selection-end-column="109" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -127,10 +139,10 @@
         <option value="$PROJECT_DIR$/src/main/java/io/hops/intrabody/BluetoothServiceDiscovery.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/io/hops/intrabody/SimpleSPPClient.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPPClient.java" />
         <option value="$PROJECT_DIR$/src/main/resources/record.txt" />
         <option value="$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -162,6 +174,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -211,14 +224,13 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537451766325" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538774489191" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -432,14 +444,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76290000" />
+    <option name="totallyTimeSpent" value="76538000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
-    <editor active="true" />
+    <frame x="134" y="35" width="3706" height="2125" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" x="706" y="115" width="575" height="925" id="Project" order="0" sideWeight="0.49356914" visible="true" weight="0.32650802" />
-      <window_info id="Structure" order="1" sideWeight="0.50643086" side_tool="true" visible="true" weight="0.32650802" />
+      <window_info active="true" content_ui="combo" x="706" y="115" width="575" height="925" id="Project" order="0" sideWeight="0.48948786" visible="true" weight="0.25234938" />
+      <window_info id="Structure" order="1" sideWeight="0.5105121" side_tool="true" visible="true" weight="0.25234938" />
       <window_info id="Learn" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -546,16 +557,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="216">
-            <caret line="12" column="53" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="53" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/bluecove-2.1.1-SNAPSHOT.jar!/javax/bluetooth/UUID.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -583,11 +584,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/hops/intrabody/IntrabodySPP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="289" column="30" selection-start-line="289" selection-start-column="30" selection-end-line="289" selection-end-column="30" />
+        <state relative-caret-position="1474">
+          <caret line="283" column="2" lean-forward="true" selection-start-line="283" selection-start-column="2" selection-end-line="283" selection-end-column="2" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1080">
+            <caret line="30" column="109" selection-start-line="30" selection-start-column="109" selection-end-line="30" selection-end-column="109" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
