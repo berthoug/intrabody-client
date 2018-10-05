@@ -26,8 +26,7 @@ Default is:
 ## Troubleshoot
 On Ubuntu you may need to do the following 
 - [BlueCove with Bluez chucks “Can not open SDP session. [2] No such file or directory”](https://stackoverflow.com/questions/30946821/bluecove-with-bluez-chucks-can-not-open-sdp-session-2-no-such-file-or-direct)
-- If bluetooth adapter cannot discover devices, you need download and install [BRCM](https://github
-.com/winterheart/broadcom-bt-firmware/tree/master/brcm) under 
+- If bluetooth adapter cannot discover devices, you need download and install [BRCM](https://github.com/winterheart/broadcom-bt-firmware/tree/master/brcm) under 
 `/lib/firmware/brcm`. The file you download needs to match the bluetooth adapter of your laptop. Useful information 
 is available [here](https://askubuntu.com/questions/1032417/ubuntu-18-04-lts-bluetooth-0cf33004-discovery-not
 -working). **Attention**: You may need to rename the driver because Ubuntu expects a slightly different name for it. 
