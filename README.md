@@ -21,7 +21,11 @@ Default is:
  ``` 
 `time` is automatically set by the program in runtime.
 
-- Run it from the root path of the project with `java -classpath target/classes:lib/* io.hops.intrabody.IntrabodySPP`  
+- Run it with
+```
+java -Dfile.encoding=UTF-8 -classpath <PATH_TO_INTRABODY_CLIENT_ROOT_DIR>/target/classes:<PATH_TO_INTRABODY_CLIENT_ROOT_DIR>/lib/bluecove-2.1.1-SNAPSHOT.jar:<PATH_TO_INTRABODY_CLIENT_ROOT_DIR>/lib/bluecove-gpl-2.1.1-SNAPSHOT.jar:~hops/intrabody-client/lib/bluecove-bluez-2.1.1-SNAPSHOT.jar io.hops.intrabody.IntrabodySPP client
+```
+
 
 ## Troubleshoot
 On Ubuntu you may need to do the following 
