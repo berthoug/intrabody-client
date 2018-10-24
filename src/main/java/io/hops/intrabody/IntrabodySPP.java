@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -263,10 +264,11 @@ public class IntrabodySPP implements DiscoveryListener {
         try {
           byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
           String recordTemplate  = new String(encoded, StandardCharsets.US_ASCII);
+          
           String record = recordTemplate.replace("<value>",
             "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
               + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
-              + ", gesture: 0").
+              + ", gesture: " + getGesture()).
             replace("<time>",Long.toString(System.currentTimeMillis())).trim();
           //Set value and timestamp in record
           System.out.println("Record to send:" + record);
@@ -274,7 +276,7 @@ public class IntrabodySPP implements DiscoveryListener {
           pWriter.flush();
           recordsSent++;
           System.out.println("Records sent : " + recordsSent);
-          Thread.sleep(2000);
+          Thread.sleep(10000);
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -282,6 +284,12 @@ public class IntrabodySPP implements DiscoveryListener {
     }
   } // sendLoop
   
+  public static int getGesture(){
+    Random r = new Random();
+    int Low = 0;
+    int High = 6;
+    return r.nextInt(High-Low) + Low;
+  }
   
   // start server
   private void startServer() throws IOException {
