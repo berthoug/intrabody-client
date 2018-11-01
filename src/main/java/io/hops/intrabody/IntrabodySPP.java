@@ -265,18 +265,22 @@ public class IntrabodySPP implements DiscoveryListener {
           byte[] encoded = Files.readAllBytes(Paths.get("src/main/resources/record.txt"));
           String recordTemplate  = new String(encoded, StandardCharsets.US_ASCII);
           
-          String record = recordTemplate.replace("<value>",
-            "temp: 22." + ThreadLocalRandom.current().nextInt(0, 9)
-              + ", hum: 65." +ThreadLocalRandom.current().nextInt(0, 9)
-              + ", gesture: " + getGesture()).
-            replace("<time>",Long.toString(System.currentTimeMillis())).trim();
+          String record = recordTemplate
+            .replace("<temp>","12." + ThreadLocalRandom.current().nextInt(0, 9))
+            .replace("<humidity>","45." +ThreadLocalRandom.current().nextInt(0, 9))
+            .replace("<gRPS>", Integer.toString(getGRPS()))
+            .replace("<gStrech0>","01")
+            .replace("<gStrech1>","10")
+            .replace("<gStrech2>","20")
+            .replace("<gStrech3>","30") + "\r\n";
+          
           //Set value and timestamp in record
           System.out.println("Record to send:" + record);
-          pWriter.println(record);
+          pWriter.print(record);
           pWriter.flush();
           recordsSent++;
           System.out.println("Records sent : " + recordsSent);
-          Thread.sleep(10000);
+          Thread.sleep(5000);
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -284,10 +288,10 @@ public class IntrabodySPP implements DiscoveryListener {
     }
   } // sendLoop
   
-  public static int getGesture(){
+  public static int getGRPS(){
     Random r = new Random();
-    int Low = 0;
-    int High = 6;
+    int Low = 1;
+    int High = 7;
     return r.nextInt(High-Low) + Low;
   }
   

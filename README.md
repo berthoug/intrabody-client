@@ -13,17 +13,23 @@ sudo apt-get install bluetooth libbluetooth-dev
 # libbluetooth-dev libboost-thread-dev libglib2.0-dev
 ```
 - Bluetooth adapter active on your laptop
-- Define the **record** to be sent, in `src/main/resources/record.txt`. It must be a *one-line* valid json format 
-string. 
-Default is:
+- Define the **record** to be sent, in `src/main/resources/record.txt`. It must be a *one-line* string and replace 
+the placeholder with the values to be sent.
+
+Template:
 ```
-{dvcId: 18367, channelId: 123, value: 287.23, unit: 5, time:${time}, longitude: 47.75230306919155, bootMillis: 178615447, bootNum: 0, deviceUUID: f6214976-ccae-48f0-9aa9-97d09b22ba6d, epochMillis: 1517235415807, recordUUID: fe7b0edf-105b-4d7e-95d2-d03ed85a39bb}
- ``` 
-`time` is automatically set by the program in runtime.
+<temp>,<humidity>,<gRPS>,<gStrech0>,<gStrech1>,<gStrech2>,<gStrech3>
+``` 
+
+Example:
+```
+12.6,45.4,5,01,10,20,30
+```
+
 
 - Run it with
 ```
-java -Dfile.encoding=UTF-8 -classpath <PATH_TO_INTRABODY_CLIENT_ROOT_DIR>/target/classes:<PATH_TO_INTRABODY_CLIENT_ROOT_DIR>/lib/bluecove-2.1.1-SNAPSHOT.jar:<PATH_TO_INTRABODY_CLIENT_ROOT_DIR>/lib/bluecove-gpl-2.1.1-SNAPSHOT.jar:~hops/intrabody-client/lib/bluecove-bluez-2.1.1-SNAPSHOT.jar io.hops.intrabody.IntrabodySPP client
+java -Dfile.encoding=UTF-8 -classpath /home/theo/hops/intrabody-client/target/classes:/home/theo/hops/intrabody-client/lib/bluecove-2.1.1-SNAPSHOT.jar:/home/theo/hops/intrabody-client/lib/bluecove-gpl-2.1.1-SNAPSHOT.jar:/home/theo/hops/intrabody-client/lib/bluecove-bluez-2.1.1-SNAPSHOT.jar io.hops.intrabody.IntrabodySPP client
 ```
 
 
